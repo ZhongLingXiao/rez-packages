@@ -22,7 +22,7 @@ description = \
 build_requires = []
 
 requires = [
-    "openssl-1.1.1"
+    #"openssl-1.1.1"
 ]
 
 variants = []

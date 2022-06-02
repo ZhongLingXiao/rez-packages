@@ -12,7 +12,7 @@ set(make_args -j$ENV{REZ_BUILD_THREAD_COUNT} VERBOSE=1)
 
 
 if(${REZ_BUILD_INSTALL})
-    set(install_cmd cd ../${name} && make install ${make_args})
+    set(install_cmd make install ${make_args})
 else()
     set(install_cmd echo "skip install step")
 endif()
@@ -21,9 +21,11 @@ ExternalProject_add(
     ${name}
     URL ${url}
     PREFIX ${name}
-    CONFIGURE_COMMAND cd ../${name} && ./bootstrap
-        --prefix=$ENV{REZ_BUILD_INSTALL_PATH}
-    BUILD_COMMAND cd ../${name} &&  make ${make_args}
+    CONFIGURE_COMMAND cmake 
+        -DCMAKE_INSTALL_PREFIX=$ENV{REZ_BUILD_INSTALL_PATH}
+        -DCMAKE_USE_OPENSSL=OFF
+        ../${name}
+    BUILD_COMMAND make ${make_args}
     INSTALL_COMMAND ${install_cmd}
 )
 
