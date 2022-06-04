@@ -7,7 +7,7 @@ include(ExternalProject)
 
 set(version $ENV{REZ_BUILD_PROJECT_VERSION})
 set(name $ENV{REZ_BUILD_PROJECT_NAME})
-set(url https://github.com/Kitware/CMake/releases/download/v3.20.4/cmake-3.20.4.tar.gz)
+set(url https://github.com/Kitware/CMake.git)
 set(make_args -j$ENV{REZ_BUILD_THREAD_COUNT} VERBOSE=1)
 
 
@@ -19,7 +19,8 @@ endif()
 
 ExternalProject_add(
     ${name}
-    URL ${url}
+    GIT_REPOSITORY ${url}
+    GIT_TAG v3.20.4
     PREFIX ${name}
     CONFIGURE_COMMAND cmake 
         -DCMAKE_INSTALL_PREFIX=$ENV{REZ_BUILD_INSTALL_PATH}
